@@ -16,6 +16,11 @@ Use the installation script to install it and get the dpeendencies:
 
                 cd foreman-host-builder; python setup.py install
 
+
+Or, if you are only interested in the script:
+
+                pip install foreman-host-builder
+
 ## Configuration
 
 The configuration in *config.cfg* can either be manually edited or entered at script execution time. If you are editing the file manually you have to enconde the passwords in base64.
