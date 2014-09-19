@@ -13,7 +13,14 @@ configuration = ConfigParser.SafeConfigParser()
 test = configuration.read(configfile)
 
 if test == []:
-    raise IOError('Config file not found: {0}'.format(configfile))
+    print "config.cfg file not found, creating it"
+    configuration.add_section('foreman')
+    configuration.set('foreman','foreman_server','')
+    configuration.set('foreman','foreman_username','')
+    configuration.set('foreman','foreman_password','')
+    configuration.set('foreman','foreman_api_version','2')
+    with open(configfile, 'w+') as f:
+        configuration.write(f)
 
 user_input = False
 sections = configuration.sections()
