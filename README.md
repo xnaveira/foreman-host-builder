@@ -2,6 +2,8 @@
 
 This package contains a script that uses the python-foreman module to build a set of hosts in foreman
 
+IMPORTANT: At the moment it is only tested with vmware and ovirt backends. Amazon and Google are under development.
+
 * foreman-host-builder.py
 
 The configuration resides in the file *config.cfg*.
