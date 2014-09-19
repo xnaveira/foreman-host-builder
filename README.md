@@ -6,6 +6,15 @@ This package contains a script that uses the python-foreman module to build a se
 
 The configuration resides in the file *config.cfg*.
 
+## Installation
+
+Get the code from this repository:
+
+                git clone https://github.com/xnaveira/foreman-host-builder
+
+Use the installation script to install it and get the dpeendencies:
+
+                cd foreman-host-builder; python setup.py install
 
 ## Configuration
 
