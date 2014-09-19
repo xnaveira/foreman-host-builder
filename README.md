@@ -58,12 +58,17 @@ The template file supports comments preceded by the '#' symbol.  Every non prece
 
 From running `./foreman-host-builder.py`:
 
-        ./foreman-host-builder [OPTIONS]
-        
-         Creates a set of machines on the foreman server specified in config.py
-        
-         -t , --template <template_file>
-              the template file containing the lst with machines to be created and their configuration parameters
-              OPTIONAL, defaults to <location>.txt
+           ./foreman-host-builder [OPTIONS]
+           
+            Creates a set of machines on the foreman server specified in config.py
+           
+            -t , --template <template_file>
+                 the template file containing the lst with machines to be created and their configuration parameters
+           
+            The template format is a csv file as follows:
+           
+            HOSTNAME;DOMAIN;LOCATION;SUBNET;ENVIRONMENT;ARCHITECTURE;COMPUTE_RESOURCE;HOSTGROUP;COMPUTE_PROFILE;OPERATING_SYSTEM;IP;PTABLE;MEDIA
+           
+            Use the exact name of those resources as they appear in Foreman GUI
 
-
+ 

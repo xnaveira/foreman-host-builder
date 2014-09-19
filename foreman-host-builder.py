@@ -16,6 +16,13 @@ def _usage():
     print ""
     print " -t , --template <template_file>"
     print "      the template file containing the lst with machines to be created and their configuration parameters"
+    print ""
+    print " The template format is a csv file as follows:"
+    print ""
+    print " HOSTNAME;DOMAIN;LOCATION;SUBNET;ENVIRONMENT;ARCHITECTURE;COMPUTE_RESOURCE;HOSTGROUP;COMPUTE_PROFILE;OPERATING_SYSTEM;IP;PTABLE;MEDIA"
+    print ""
+    print " Use the exact name of those resources as they appear in Foreman GUI"
+    print ""
 
 def _template_parser(filename):
     try:
