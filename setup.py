@@ -9,12 +9,11 @@ except ImportError:
     exit(1)
 
 setup(name='foreman-host-builder',
-      version='1.6',
+      version='1.8',
       description='Build hosts in Foreman from a template file',
       author='Xavier Naveira',
       author_email='xnaveira@gmail.com',
-      url='',
+      url='https://github.com/xnaveira/foreman-host-builder',
       install_requires=['python-foreman','fabric','ConfigParser'],
       scripts=['config.py','imports.py','foreman-host-builder.py'],
-      data_files=['config.cfg','template_example.txt'],
      )

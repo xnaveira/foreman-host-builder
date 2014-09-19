@@ -1,1 +1,1 @@
-include config.cfg config.py imports.py LICENSE README.md template_example.txt foreman-host-builder.py   
+include config.py imports.py LICENSE README.md foreman-host-builder.py   
