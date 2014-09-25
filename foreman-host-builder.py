@@ -109,8 +109,9 @@ def main(argv):
         build_dict['name'] = server
         print 'Name: ' + cyan(server)
 
-        build_dict['subnet_id'] = foreman_api.subnets.show(id=servers[server]['subnet'])['id']
-        print 'Subnet ' + cyan(servers[server]['subnet']) + ' has id: ' + cyan(build_dict['subnet_id'])
+        if foreman_api.compute_resources.show(id=servers[server]['compute_resource'])['provider'] != 'EC2':
+            build_dict['subnet_id'] = foreman_api.subnets.show(id=servers[server]['subnet'])['id']
+            print 'Subnet ' + cyan(servers[server]['subnet']) + ' has id: ' + cyan(build_dict['subnet_id'])
 
         build_dict['operatingsystem_id'] = foreman_api.operatingsystems.show(id=servers[server]['operatingsystem'])['id']
         print 'Operating System ' + cyan(servers[server]['operatingsystem']) + ' has id: ' + cyan(build_dict['operatingsystem_id'])
@@ -137,13 +138,14 @@ def main(argv):
         for subnet in subnets:
             subnets_dict[subnet['id']] = subnet['vlanid']
 
-        for network in foreman_api.compute_resources.available_networks(id=build_dict['compute_resource_id'],cluster_id=build_dict['compute_attributes']['cluster'])['results']:
-            vlanid = subnets_dict[build_dict['subnet_id']]
-            if vlanid in network['name']:
-                build_dict['compute_attributes'].update({'nics_attributes':{ '0':{ 'name':'NIC1', 'network':network['id'] } } })
-                build_dict['compute_attributes']['interfaces_attributes'].clear()
-                build_dict['compute_attributes']['interfaces_attributes'].update({ '0':{ 'name':'NIC1', 'network':network['id'] } })
-                print 'Network ' + cyan(servers[server]['subnet']) + ' with VLAN_ID ' + cyan(vlanid) + ' in ' + cyan(servers[server]['compute_resource']) + ' ' + cyan(build_dict['compute_attributes']['cluster']) + ' has id: ' + cyan(network['id'])
+        if foreman_api.compute_resources.show(id=servers[server]['compute_resource'])['provider'] != 'EC2':
+            for network in foreman_api.compute_resources.available_networks(id=build_dict['compute_resource_id'],cluster_id=build_dict['compute_attributes']['cluster'])['results']:
+                vlanid = subnets_dict[build_dict['subnet_id']]
+                if vlanid in network['name']:
+                    build_dict['compute_attributes'].update({'nics_attributes':{ '0':{ 'name':'NIC1', 'network':network['id'] } } })
+                    build_dict['compute_attributes']['interfaces_attributes'].clear()
+                    build_dict['compute_attributes']['interfaces_attributes'].update({ '0':{ 'name':'NIC1', 'network':network['id'] } })
+                    print 'Network ' + cyan(servers[server]['subnet']) + ' with VLAN_ID ' + cyan(vlanid) + ' in ' + cyan(servers[server]['compute_resource']) + ' ' + cyan(build_dict['compute_attributes']['cluster']) + ' has id: ' + cyan(network['id'])
 
 #SERVER BUILD
         #Setup the machine to be started upon creation
