@@ -109,6 +109,9 @@ def main(argv):
         build_dict['name'] = server
         print 'Name: ' + cyan(server)
 
+        build_dict['ip'] = servers[server]['ip']
+        print 'Ip address: ' + cyan(servers[server]['ip'])
+
         build_dict['subnet_id'] = foreman_api.subnets.show(id=servers[server]['subnet'])['id']
         print 'Subnet ' + cyan(servers[server]['subnet']) + ' has id: ' + cyan(build_dict['subnet_id'])
 
