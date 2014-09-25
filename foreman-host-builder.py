@@ -19,7 +19,7 @@ def _usage():
     print ""
     print " The template format is a csv file as follows:"
     print ""
-    print " HOSTNAME;DOMAIN;LOCATION;SUBNET;ENVIRONMENT;ARCHITECTURE;COMPUTE_RESOURCE;HOSTGROUP;COMPUTE_PROFILE;OPERATING_SYSTEM;IP;PTABLE;MEDIA"
+    print " HOSTNAME;DOMAIN;LOCATION;SUBNET;ENVIRONMENT;ARCHITECTURE;COMPUTE_RESOURCE;HOSTGROUP;COMPUTE_PROFILE;OPERATING_SYSTEM;IP;PTABLE;MEDIA;PUPPET_CA_PROXY;PUPPET_PROXY"
     print ""
     print " Use the exact name of those resources as they appear in Foreman GUI"
     print ""
@@ -37,7 +37,7 @@ def _template_parser(filename):
         if "#" not in l and l not in ['\n','\r\n']:
             l=l.rstrip('\r\n')
             params = l.split(";")
-            if len(params) != 13:
+            if len(params) != 15:
                 raise ValueError(red('Wrong number of params in line ' + str(i)))
             servers[params[0]] = {}
             servers[params[0]]['domain']=params[1]
@@ -52,6 +52,8 @@ def _template_parser(filename):
             servers[params[0]]['ip']=params[10]
             servers[params[0]]['ptable']=params[11]
             servers[params[0]]['media']=params[12]
+            servers[params[0]]['puppet_ca_proxy']=params[13]
+            servers[params[0]]['puppet_proxy']=params[14]
         i=i+1
     return servers
 
@@ -129,6 +131,13 @@ def main(argv):
 
         build_dict['environment_id'] = foreman_api.environments.show(id=servers[server]['environment'])['id']
         print 'Environment ' + cyan(servers[server]['environment']) + ' has id: ' + cyan(build_dict['environment_id'])
+
+        #Find out id of puppet servers
+        build_dict['puppet_ca_proxy_id'] = foreman_api.smart_proxies.show(id=servers[server]['puppet_ca_proxy'])['id']
+        print 'Puppet CA proxy ' + cyan(servers[server]['puppet_ca_proxy']) + ' has id: ' + cyan(build_dict['puppet_ca_proxy_id'])
+
+        build_dict['puppet_proxy_id'] = foreman_api.smart_proxies.show(id=servers[server]['puppet_proxy'])['id']
+        print 'Puppet proxy ' + cyan(servers[server]['puppet_proxy']) + ' has id: ' + cyan(build_dict['puppet_proxy_id'])
 
         build_dict['compute_attributes'] = {}
 
