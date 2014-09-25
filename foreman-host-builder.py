@@ -109,17 +109,12 @@ def main(argv):
         build_dict['name'] = server
         print 'Name: ' + cyan(server)
 
-<<<<<<< HEAD
         build_dict['ip'] = servers[server]['ip']
         print 'Ip address: ' + cyan(servers[server]['ip'])
 
-        build_dict['subnet_id'] = foreman_api.subnets.show(id=servers[server]['subnet'])['id']
-        print 'Subnet ' + cyan(servers[server]['subnet']) + ' has id: ' + cyan(build_dict['subnet_id'])
-=======
         if foreman_api.compute_resources.show(id=servers[server]['compute_resource'])['provider'] != 'EC2':
             build_dict['subnet_id'] = foreman_api.subnets.show(id=servers[server]['subnet'])['id']
             print 'Subnet ' + cyan(servers[server]['subnet']) + ' has id: ' + cyan(build_dict['subnet_id'])
->>>>>>> Remove the network handling to make it work with Amazon
 
         build_dict['operatingsystem_id'] = foreman_api.operatingsystems.show(id=servers[server]['operatingsystem'])['id']
         print 'Operating System ' + cyan(servers[server]['operatingsystem']) + ' has id: ' + cyan(build_dict['operatingsystem_id'])
