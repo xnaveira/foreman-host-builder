@@ -94,6 +94,9 @@ def main(argv):
         print 'Getting parameters for ' + cyan(server) + '...'
 
 
+        build_dict['location_id'] = foreman_api.locations.show(id=servers[server]['location'])['id']
+        print 'Location ' + cyan(servers[server]['location']) + ' has id: ' + cyan(build_dict['location_id'])
+
         build_dict['hostgroup_id'] = foreman_api.hostgroups.show(id=servers[server]['hostgroup'])['id']
         print 'Hostgroup ' + cyan(servers[server]['hostgroup']) + ' has id: ' + cyan(build_dict['hostgroup_id'])
 
