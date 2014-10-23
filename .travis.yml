@@ -1,10 +1,18 @@
 language: python
 python:
-        - "2.7"
+- '2.7'
 install:
-        - "pip install ."
+- pip install .
 branches:
-        only:
-                - master
+  only:
+  - master
 script:
-        - nosetests
+- nosetests
+deploy:
+  provider: pypi
+  user: xnaveira
+  password:
+    secure: efpDb3iUXCiUfSdvqlvEYbHLnTzYx8xKZv20SJvM9LPEqMwi1gwbaSVBjnopHba33WjTAPFMXuSVCfVij/kbn818MkI+vOBI892rCXfLchdYlImiKicBKfldSVDZ7PimvY09IQ6QmxhaBKIWn+yUi7/HlRiHWWhp02U7H9YVDOI=
+  on:
+    tags: true
+    repo: xnaveira/foreman-host-builder
