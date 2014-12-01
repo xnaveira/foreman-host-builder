@@ -6,7 +6,7 @@ foreman.
 See README.md
 """
 
-from imports import *
+from fhb.imports import *
 
 def _usage():
     print ""
