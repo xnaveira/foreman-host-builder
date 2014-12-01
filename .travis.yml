@@ -14,6 +14,4 @@ deploy:
   password:
     secure: efpDb3iUXCiUfSdvqlvEYbHLnTzYx8xKZv20SJvM9LPEqMwi1gwbaSVBjnopHba33WjTAPFMXuSVCfVij/kbn818MkI+vOBI892rCXfLchdYlImiKicBKfldSVDZ7PimvY09IQ6QmxhaBKIWn+yUi7/HlRiHWWhp02U7H9YVDOI=
   on:
-    branch: master
-    repo: xnaveira/foreman-host-builder
-    
+    tags: true
