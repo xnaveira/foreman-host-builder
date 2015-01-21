@@ -17,9 +17,7 @@ def _usage():
     print " -t , --template <template_file>"
     print "      the template file containing the lst with machines to be created and their configuration parameters"
     print ""
-    print " The template format is a csv file as follows:"
-    print ""
-    print " HOSTNAME;DOMAIN;LOCATION;SUBNET;ENVIRONMENT;ARCHITECTURE;COMPUTE_RESOURCE;HOSTGROUP;COMPUTE_PROFILE;OPERATING_SYSTEM;IP;PTABLE;MEDIA;PUPPET_CA_PROXY;PUPPET_PROXY"
+    print " The template format is a yaml file, look into the provided template_example.yml for an example"
     print ""
     print " Use the exact name of those resources as they appear in Foreman GUI"
     print ""
@@ -27,34 +25,12 @@ def _usage():
 def _template_parser(filename):
     try:
         with open(filename, 'r') as f:
-            lines = f.readlines()
+            lines = f.read()
     except IOError, e:
         print(red("Error: " + str(e)))
         exit(5)
-    i=0
-    servers = {}
-    for l in lines:
-        if "#" not in l and l not in ['\n','\r\n']:
-            l=l.rstrip('\r\n')
-            params = l.split(";")
-            if len(params) != 15:
-                raise ValueError(red('Wrong number of params in line ' + str(i)))
-            servers[params[0]] = {}
-            servers[params[0]]['domain']=params[1]
-            servers[params[0]]['location']=params[2]
-            servers[params[0]]['subnet']=params[3]
-            servers[params[0]]['environment']=params[4]
-            servers[params[0]]['architecture']=params[5]
-            servers[params[0]]['compute_resource']=params[6]
-            servers[params[0]]['hostgroup']=params[7]
-            servers[params[0]]['compute_profile']=params[8]
-            servers[params[0]]['operatingsystem']=params[9]
-            servers[params[0]]['ip']=params[10]
-            servers[params[0]]['ptable']=params[11]
-            servers[params[0]]['media']=params[12]
-            servers[params[0]]['puppet_ca_proxy']=params[13]
-            servers[params[0]]['puppet_proxy']=params[14]
-        i=i+1
+    servers = yaml.load(lines)
+    servers['servers'].pop('common', None)
     return servers
 
 def main(argv):

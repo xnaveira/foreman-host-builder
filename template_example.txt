@@ -1,5 +1,0 @@
-#This is an environment template for being used with the foreman-host-builder.py script
-#Put the hosts to be build and its properties in a single line for every host
-#The line format is the following, the elements are expected to be semicolon separated, the names as they appear in The Foreman GUI and are case sensitive:
-
-#HOSTNAME;DOMAIN;LOCATION;SUBNET;ENVIRONMENT;ARCHITECTURE;COMPUTE_RESOURCE;HOSTGROUP;COMPUTE_PROFILE;OPERATING_SYSTEM;IP;PTABLE;MEDIA
