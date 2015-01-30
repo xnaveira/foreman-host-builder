@@ -57,10 +57,38 @@ The following elements must be prepared in foreman before attempting to create t
 
 ## Template file format
 
-The template file supports comments preceded by the '#' symbol.  Every non preceded by '#' line will be interpreted as a server. The expected fields are the following (semicolon separated), the exact name used in foreman must be provided in the template file. 
+The template format is a yaml file, look into the provided template_example.yml for an example
 
-        HOSTNAME;DOMAIN;LOCATION;SUBNET;ENVIRONMENT;ARCHITECTURE;COMPUTE_RESOURCE;HOSTGROUP;COMPUTE_PROFILE;OPERATING_SYSTEM;IP;PTABLE;MEDIA;PUPPET_CA_PROXY;PUPPET_PROXY"
-
+```
+#This is the template for the script input. It uses YAML that we'll be loaded as
+#a dictionary. The special key common contains the defaults common to all the
+#servers and we'll be removed from the dictionary once loaded.
+#Make sure that the values corresponds with the names in Foreman (case
+#sensitive)
+servers:
+  common: &defaults
+    domain: domain.net
+    location: thelocation
+    subnet: thesubnet
+    environment: production
+    architecture: x86_64
+    compute_resource: examplevmware
+    hostgroup: thehostgroup
+    compute_profile: examplesmall
+    operatingsystem: Ubuntu 12.04
+    ptable: default
+    media: Ubuntu
+    puppet_ca_proxy: puppetserver
+    puppet_proxy: puppetserver
+  server1:
+    ip: 1.2.3.4
+    mac: 12:34:56:78:90:ab
+    <<: *defaults
+  server2:
+    ip: 1.2.3.5
+    mac: 12:34:56:78:90:ac
+    <<: *defaults
+```
 
 
 ## Command line arguments
@@ -74,10 +102,5 @@ From running `./foreman-host-builder.py`:
             -t , --template <template_file>
                  the template file containing the lst with machines to be created and their configuration parameters
            
-            The template format is a csv file as follows:
-           
-            HOSTNAME;DOMAIN;LOCATION;SUBNET;ENVIRONMENT;ARCHITECTURE;COMPUTE_RESOURCE;HOSTGROUP;COMPUTE_PROFILE;OPERATING_SYSTEM;IP;PTABLE;MEDIA
-           
-            Use the exact name of those resources as they appear in Foreman GUI
 
  
