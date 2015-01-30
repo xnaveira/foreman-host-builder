@@ -62,7 +62,7 @@ The template format is a yaml file, look into the provided template_example.yml 
 ```
 #This is the template for the script input. It uses YAML that we'll be loaded as
 #a dictionary. The special key common contains the defaults common to all the
-#servers and we'll be removed from the dictionary once loaded.
+#servers and will be removed from the dictionary once loaded.
 #Make sure that the values corresponds with the names in Foreman (case
 #sensitive)
 servers:
