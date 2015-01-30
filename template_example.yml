@@ -20,8 +20,10 @@ servers:
     puppet_proxy: puppetserver
   server1:
     ip: 1.2.3.4
+    mac: 12:34:56:78:90:ab
     <<: *defaults
   server2:
     ip: 1.2.3.5
+    mac: 12:34:56:78:90:ac
     <<: *defaults
 
