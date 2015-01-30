@@ -1,1 +1,1 @@
-include config.py imports.py LICENSE README.md foreman-host-builder.py   
+include fhb/config.py fhb/imports.py LICENSE README.md foreman-host-builder.py   
