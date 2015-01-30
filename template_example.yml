@@ -1,0 +1,29 @@
+#This is the template for the script input. It uses YAML that we'll be loaded as
+#a dictionary. The special key common contains the defaults common to all the
+#servers and we'll be removed from the dictionary once loaded.
+#Make sure that the values corresponds with the names in Foreman (case
+#sensitive)
+servers:
+  common: &defaults
+    domain: domain.net
+    location: thelocation
+    subnet: thesubnet
+    environment: production
+    architecture: x86_64
+    compute_resource: examplevmware
+    hostgroup: thehostgroup
+    compute_profile: examplesmall
+    operatingsystem: Ubuntu 12.04
+    ptable: default
+    media: Ubuntu
+    puppet_ca_proxy: puppetserver
+    puppet_proxy: puppetserver
+  server1:
+    ip: 1.2.3.4
+    mac: 12:34:56:78:90:ab
+    <<: *defaults
+  server2:
+    ip: 1.2.3.5
+    mac: 12:34:56:78:90:ac
+    <<: *defaults
+

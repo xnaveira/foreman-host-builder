@@ -8,6 +8,7 @@ import json
 import urllib
 import getopt
 import re
+import yaml
 
 from fabric.colors import red,green,yellow,white,cyan
 from config import *
