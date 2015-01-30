@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/xnaveira/foreman-host-builder.svg?branch=master)](https://travis-ci.org/xnaveira/foreman-host-builder)
 
-# foreman-host-builder 2.5
+# foreman-host-builder 2.6
 
 This package contains a script that uses the python-foreman module to build a set of hosts in foreman
 
