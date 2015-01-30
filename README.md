@@ -90,7 +90,6 @@ servers:
     <<: *defaults
 ```
 
-
 ## Command line arguments
 
 From running `./foreman-host-builder.py`:
