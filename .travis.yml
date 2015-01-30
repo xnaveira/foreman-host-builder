@@ -7,12 +7,13 @@ branches:
   only:
   - master
 script:
-- nosetests
+  - nosetests
 deploy:
   provider: pypi
   user: xnaveira
   password:
     secure: DBo3UQq6IDkl5E9+Z+ze36LPy5SfvwJjagRJbwtvQutYTtA0ZzZQlMmjt6DWlkP+ysE9ovZNU8ep5mMwZ6sYuCpmtb7pcYUur4XTWc1U4E6bOLS/JVsqxneqN8dEOgR/HqemIvnJouxksVlyfFBm84Kb9G1LYBHiM9S5FF3NUIg=
   on:
+    all_branches: true
     tags: true
     repo: xnaveira/foreman-host-builder

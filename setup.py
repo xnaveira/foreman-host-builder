@@ -9,7 +9,7 @@ except ImportError:
     exit(1)
 
 setup(name='foreman-host-builder',
-      version='2.4',
+      version='2.5',
       description='Build hosts in Foreman from a template file',
       author='Xavier Naveira',
       author_email='xnaveira@gmail.com',
