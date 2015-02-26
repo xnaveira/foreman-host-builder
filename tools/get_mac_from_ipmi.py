@@ -90,6 +90,9 @@ def main():
             print('E')
     else:
         output_mesg(ERROR, 'No data in stdin found')
+        print('\033[0;37m\nget_mac_from_ipmi.py: Utility to retrieve a Supermicro server system mac address from the IPMI information.\n \
+\nGiven a list of ip addresses in stdin (that corresponds to Supermicro IPMIs) it will return the primary MAC address for the manged server \
+or "E" if the MAC can\'t be retrieved')
         exit(1)
 
 if __name__ == "__main__":
