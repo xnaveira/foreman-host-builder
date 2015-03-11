@@ -85,7 +85,8 @@ def main():
                 result = subprocess.check_output(cmd, stderr=subprocess.STDOUT, shell='True')
                 #output_mesg(DEBUG, result)
                 if not re.match('^Error.*', result) and is_mac_address(result):
-                    print(result)
+                    #print(result)
+                    sys.stdout.write(result)
                     continue
             print('E')
     else:
