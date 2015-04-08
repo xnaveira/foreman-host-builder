@@ -30,8 +30,19 @@ def _template_parser(filename):
         print(red("Error: " + str(e)))
         exit(5)
     servers = yaml.load(lines)
-    servers.pop('common', None)
+    del servers['common']
     return servers
+
+def _ugly_id_lookup(foreman_api, fname, fobject):
+    """
+    Since Foreman api doesn't seem to be able to lookup an object by its name
+    when this object is nested into another one we'll be using this ugly and
+    wastefull method for the time being
+    """
+    objects = eval('foreman_api.{}.index()'.format(fobject))
+    for res in objects['results']:
+        if res['name'] == fname:
+            return res['id']
 
 def main(argv):
     try:
@@ -72,10 +83,15 @@ def main(argv):
         print ''
         print 'Getting parameters for ' + cyan(server) + '...'
 
-        build_dict['location_id'] = foreman_api.locations.show(id=servers[server]['location'])['id']
+        #build_dict['location_id'] = foreman_api.locations.show(id=servers[server]['location'])['id']
+        build_dict['location_id'] = _ugly_id_lookup(foreman_api, servers[server]['location'],'locations')
         print 'Location ' + cyan(servers[server]['location']) + ' has id: ' + cyan(build_dict['location_id'])
 
-        build_dict['hostgroup_id'] = foreman_api.hostgroups.show(id=servers[server]['hostgroup'])['id']
+        #build_dict['hostgroup_id'] = foreman_api.hostgroups.show(id=servers[server]['hostgroup'])['id']
+        #build_dict['hostgroup_id'] = _ugly_id_lookup(foreman_api, servers[server]['hostgroup'],'hostgroups')
+        #There is a bug in the python-foreman wrapper that doesn''t allow hostgroup id lookup at the moment so
+        #we'll be using the id directly for the moment.
+        build_dict['hostgroup_id'] = servers[server]['hostgroup']
         print 'Hostgroup ' + cyan(servers[server]['hostgroup']) + ' has id: ' + cyan(build_dict['hostgroup_id'])
 
         build_dict['name'] = server
@@ -97,20 +113,36 @@ def main(argv):
         build_dict['ip'] = servers[server]['ip']
         print 'Ip address: ' + cyan(servers[server]['ip'])
 
-        build_dict['architecture_id'] = foreman_api.architectures.show(id=servers[server]['architecture'])['id']
-        print 'Architecture ' + cyan(servers[server]['architecture']) + ' has id: ' + cyan(build_dict['architecture_id'])
+        try:
+            build_dict['architecture_id'] = foreman_api.architectures.show(id=servers[server]['architecture'])['id']
+            print 'Architecture ' + cyan(servers[server]['architecture']) + ' has id: ' + cyan(build_dict['architecture_id'])
+        except KeyError:
+            pass
 
-        build_dict['operatingsystem_id'] = foreman_api.operatingsystems.show(id=servers[server]['operatingsystem'])['id']
-        print 'Operating System ' + cyan(servers[server]['operatingsystem']) + ' has id: ' + cyan(build_dict['operatingsystem_id'])
+        try:
+            build_dict['operatingsystem_id'] = foreman_api.operatingsystems.show(id=servers[server]['operatingsystem'])['id']
+            print 'Operating System ' + cyan(servers[server]['operatingsystem']) + ' has id: ' + cyan(build_dict['operatingsystem_id'])
+        except KeyError:
+            pass
 
-        build_dict['medium_id'] = foreman_api.media.show(id=servers[server]['media'])['id']
-        print 'Media ' + cyan(servers[server]['media']) + ' has id: ' + cyan(build_dict['medium_id'])
+        try:
+            build_dict['medium_id'] = foreman_api.media.show(id=servers[server]['media'])['id']
+            print 'Media ' + cyan(servers[server]['media']) + ' has id: ' + cyan(build_dict['medium_id'])
+        except KeyError:
+            pass
 
-        build_dict['ptable_id'] = foreman_api.ptables.show(id=servers[server]['ptable'])['id']
-        print 'Partition Table ' + cyan(servers[server]['ptable']) + ' has id: ' + cyan(build_dict['ptable_id'])
+        try:
+            build_dict['ptable_id'] = foreman_api.ptables.show(id=servers[server]['ptable'])['id']
+            print 'Partition Table ' + cyan(servers[server]['ptable']) + ' has id: ' + cyan(build_dict['ptable_id'])
+        except KeyError:
+            pass
 
-        build_dict['root_pass'] = servers[server]['root_pass']
-        print 'Root pass: ' + cyan(servers[server]['root_pass'])
+        try:
+            build_dict['root_pass'] = servers[server]['root_pass']
+            print 'Root pass: ' + cyan(servers[server]['root_pass'])
+        except KeyError:
+            build_dict['root_pass'] = "vp3vp3vp3"
+            pass
 
         if build_dict['mac'] == '': #This stuff it's only used if it is a virtual machine
 
