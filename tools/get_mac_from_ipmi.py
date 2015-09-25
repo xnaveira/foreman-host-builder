@@ -23,7 +23,7 @@ ipmi_commands = { \
     }
 
 ipmi_user = 'ADMIN'
-ipmi_password = 'ADMIN'
+ipmi_password = 'vp3vp3vp3'
 
 
 ERROR = 'error'
